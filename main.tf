@@ -15,30 +15,21 @@ resource "azurerm_storage_account" "aci-storage" {
 
 resource "azurerm_storage_share" "tasklog-share" {
   name = "tasklog-share"
-
-  resource_group_name  = var.RG
   storage_account_name = azurerm_storage_account.aci-storage.name
-
 
   depends_on = [azurerm_storage_account.aci-storage]
 }
 
 resource "azurerm_storage_share" "artifact-share" {
   name = "artifact-share"
-
-  resource_group_name  = var.RG
   storage_account_name = azurerm_storage_account.aci-storage.name
-
 
   depends_on = [azurerm_storage_account.aci-storage]
 }
 
 resource "azurerm_storage_share" "repository-share" {
   name = "repository-share"
-
-  resource_group_name  = var.RG
   storage_account_name = azurerm_storage_account.aci-storage.name
-
 
   depends_on = [azurerm_storage_account.aci-storage]
 }
@@ -94,7 +85,7 @@ resource "azurerm_container_group" "octopusdeploy" {
 
     volume {
       name       = "tasklogs"
-      mount_path = "./taskLogs:/taskLogs"
+      mount_path = "/taskLogs"
       read_only  = false
       share_name = azurerm_storage_share.tasklog-share.name
 
@@ -104,7 +95,7 @@ resource "azurerm_container_group" "octopusdeploy" {
 
     volume {
       name       = "artifacts"
-      mount_path = "/.artifacts:/artifacts"
+      mount_path = "/artifacts"
       read_only  = false
       share_name = azurerm_storage_share.artifact-share.name
 
@@ -114,7 +105,7 @@ resource "azurerm_container_group" "octopusdeploy" {
 
     volume {
       name       = "repository"
-      mount_path = "./repository:/repository"
+      mount_path = "/repository"
       read_only  = false
       share_name = azurerm_storage_share.repository-share.name
 

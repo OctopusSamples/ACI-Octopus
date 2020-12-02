@@ -1,27 +1,31 @@
 variable "location" {
-    type = string
+  type = string
 }
 
 variable "RG" {
-    type = string
+  type = string
 }
 
 variable "storageAccountName" {
-    type = string
+  type = string
 }
 
 variable "octopusUser" {
-    type = string
+  type = string
 }
 
 variable "sqlLogin" {
-    type = string
+  type = string
 }
 
 variable "dbpassword" {
-    type = string
+  type = string
 }
 
 variable "octopusPassword" {
-    type = string
+  type = string
+}
+
+variable "databaseMasterKey" {
+  type = string
 }

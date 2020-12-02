@@ -14,21 +14,21 @@ resource "azurerm_storage_account" "aci-storage" {
 }
 
 resource "azurerm_storage_share" "tasklog-share" {
-  name = "tasklog-share"
+  name                 = "tasklog-share"
   storage_account_name = azurerm_storage_account.aci-storage.name
 
   depends_on = [azurerm_storage_account.aci-storage]
 }
 
 resource "azurerm_storage_share" "artifact-share" {
-  name = "artifact-share"
+  name                 = "artifact-share"
   storage_account_name = azurerm_storage_account.aci-storage.name
 
   depends_on = [azurerm_storage_account.aci-storage]
 }
 
 resource "azurerm_storage_share" "repository-share" {
-  name = "repository-share"
+  name                 = "repository-share"
   storage_account_name = azurerm_storage_account.aci-storage.name
 
   depends_on = [azurerm_storage_account.aci-storage]
@@ -118,6 +118,7 @@ resource "azurerm_container_group" "octopusdeploy" {
       "ADMIN_USERNAME"       = var.octopusUser,
       "ADMIN_PASSWORD"       = var.octopusPassword,
       "DB_CONNECTION_STRING" = "Server=tcp:${azurerm_mssql_server.octopussqlserver.name}.database.windows.net,1433;Initial Catalog=${azurerm_mssql_database.octopussqldb.name};Persist Security Info=False;User ID=mike;Password=${var.dbpassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+      "MASTER_KEY"           = var.databaseMasterKey
     }
   }
 
